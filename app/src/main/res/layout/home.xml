@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".HealthTrackerActivity">
+
+    <!-- CONTENT SCROLLER --------------------------------------------------- -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="96dp">
+
+            <!-- Title & Subtitle -->
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextAppearance.Material3.DisplaySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health Tracker"
+                android:textColor="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Build better habits, one day at a time"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <!-- Calendar Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/calendarCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="?attr/colorOutline"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Row: arrows + Today pill -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnPrev"
+                            style="?attr/borderlessButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:contentDescription="@string/abc_action_bar_home_description"
+                            android:src="@drawable/ic_chevron_left_24"
+                            app:tint="?attr/colorOnSurface" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnToday"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:insetLeft="14dp"
+                            android:insetRight="14dp"
+                            android:text="Today" />
+
+                        <ImageButton
+                            android:id="@+id/btnNext"
+                            style="?attr/borderlessButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:contentDescription="@string/abc_action_bar_up_description"
+                            android:src="@drawable/ic_chevron_right_24"
+                            app:tint="?attr/colorOnSurface" />
+                    </LinearLayout>
+
+                    <!-- Row: days of week + dates -->
+                    <LinearLayout
+                        android:id="@+id/weekRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:weightSum="7"
+                        android:orientation="horizontal">
+
+                        <!-- Repeat this day item 7x. The selected day (Fri 26) shows pill background. -->
+                        <!-- Tue 23 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Tue"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="23"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- Wed 24 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Wed"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="24"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- Thu 25 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Thu"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="25"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- Fri 26 (selected) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Fri"
+                                android:textColor="?attr/colorPrimary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="26"
+                                android:layout_marginTop="2dp"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="6dp"
+                                android:background="@drawable/bg_day_selected"
+                                android:textColor="?attr/colorPrimary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- Sat 27 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Sat"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="27"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- Sun 28 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Sun"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="28"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- Mon 29 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <TextView
+                                style="@style/TextAppearance.Material3.LabelSmall"
+                                android:text="Mon"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                style="@style/TextAppearance.Material3.BodyMedium"
+                                android:text="29"
+                                android:layout_marginTop="2dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Habit Card: Exercise -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="?attr/colorOutline"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextAppearance.Material3.TitleMedium"
+                            android:text="Exercise"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <ImageButton
+                            android:id="@+id/exerciseMenu"
+                            style="?attr/borderlessButtonStyle"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/abc_action_menu_overflow_description"
+                            android:src="@drawable/ic_more_vert_24"
+                            app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextAppearance.Material3.BodySmall"
+                        android:text="Start your streak!"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <!-- Streak circles -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="start|center_vertical"
+                        android:orientation="horizontal">
+
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Habit Card: Meditate -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMeditate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="?attr/colorOutline"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextAppearance.Material3.TitleMedium"
+                            android:text="Meditate"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <ImageButton
+                            android:id="@+id/meditateMenu"
+                            style="?attr/borderlessButtonStyle"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/abc_action_menu_overflow_description"
+                            android:src="@drawable/ic_more_vert_24"
+                            app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextAppearance.Material3.BodySmall"
+                        android:text="Start your streak!"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="start|center_vertical"
+                        android:orientation="horizontal">
+
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                        <Space android:layout_width="8dp" android:layout_height="1dp"/>
+                        <View android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_streak_circle"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- FLOATING ACTION BUTTON -------------------------------------------- -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Add Habit"
+        app:srcCompat="@drawable/ic_add_24"
+        app:tint="?attr/colorOnPrimary"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- BOTTOM NAV --------------------------------------------------------- -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="?attr/colorSurface"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom_nav"
+        app:itemRippleColor="?attr/colorSecondaryContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
